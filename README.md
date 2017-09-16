@@ -4,7 +4,7 @@ CHECKLIST
 
 [X] Spin up server
 
-[ ] Create basic routes
+[X] Create basic routes
 
 [ ] Connect client side
 

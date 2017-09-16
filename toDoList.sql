@@ -1,4 +1,4 @@
 CREATE TABLE todo (
 	id serial PRIMARY KEY,
 	taskname varchar,
-	status boolean);
+	complete boolean DEFAULT false);
