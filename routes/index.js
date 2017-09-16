@@ -5,7 +5,7 @@ var path = require('path');
 // Server-side get on the base url
 router.get('/', function (req, res) {
     var indexPath = path.join(__dirname, '../public/views/index.html');
-    console.log(indexPath);
+    console.log("In base url");
     res.sendFile(indexPath);
 });
 

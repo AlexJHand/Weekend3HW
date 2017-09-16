@@ -6,11 +6,11 @@ CHECKLIST
 
 [X] Create basic routes
 
-[ ] Connect client side
+[X] Connect client side
 
 [X] Create database
 
-[ ] Connect to database
+[X] Connect to database
 
 [ ] Display info from db on the DOM
 
