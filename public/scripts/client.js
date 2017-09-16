@@ -5,8 +5,33 @@ $(document).ready(onReady);
 function onReady() {
     console.log('In jQ');
     getTasks();
+    $('#addButton').on('click', addTask);
 }
 
+// Function to add task to database
+function addTask() {
+    // Variable to hold item from input on page
+    var taskToAdd = $('#inputBox').val();
+    console.log('Task entered: ', taskToAdd);
+    // Wrap variable in an object to send to server
+    var objectToSend = {
+        task: taskToAdd
+    };
+
+    // Ajax post
+    $.ajax({
+        type: 'POST',
+        url: '/tasks',
+        data: objectToSend,
+        success: function (serverRes) {
+            console.log('Post serverRes', serverRes);
+            // Refresh list of tasks on DOM
+            getTasks();
+        }
+    });
+}
+
+// Function to retrieve tasks from database
 function getTasks() {
     console.log('In getTasks');
     // ajax get

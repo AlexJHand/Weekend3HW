@@ -31,4 +31,37 @@ router.get('/', function (req, res) {
     })
 })
 
+router.post('/', function (req, res) {
+    var myTodo = req.body.task;
+    console.log('In post task route');
+    // Use pool to connect to database
+    pool.connect(function (connectionError, client, done) {
+        // If there's an error connecting to database
+        if (connectionError) {
+            console.log('Connection error: ', connectionError);
+            res.sendStatus(500);
+        }
+        else {
+            // Create sql parameterized query string
+            var queryString = 'INSERT INTO todo (taskname) VALUES ($1)';
+            // Values to insert into our sql string
+            var values = [myTodo];
+            // Add them together and send to database
+            client.query(queryString, values, function(queryError, resultObj) {
+                // Release the client
+                done();
+                // If there's an error with our queryString
+                if (queryError) {
+                    console.log('Query error: ', queryError);
+                    res.sendStatus(500);
+                }
+                else {
+                    console.log('Successful post', 201);
+                    res.sendStatus(201);
+                }
+            }) 
+        }
+    })
+})
+
 module.exports = router;

@@ -14,9 +14,9 @@ CHECKLIST
 
 [X] Display info from db on the DOM
 
-[ ] Post to db
+[X] Post to db
 
-[ ] Update display on post
+[X] Update display on post
 
 [ ] Toggle completed
 
