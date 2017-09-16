@@ -2,6 +2,40 @@
 var router = require('express').Router();
 var pool = require('../modules/pool');
 
+// Server-side Delete function
+router.delete('/:id', function (req, res) {
+    console.log('In delete route');
+    console.log('req.params.id: ', req.params.id);
+    // Create variable to hold id 
+    var urlId = req.params.id;
+    // Use pool to connect to database
+    pool.connect(function (connectionError, client, done) {
+        // If there's an error connecting to database
+        if (connectionError) {
+            console.log('Connection error:', connectionError);
+            res.sendStatus(500);
+        }
+        else {
+            // Create a parameterized query string
+            var queryString = 'DELETE FROM todo WHERE id=$1';
+            var values = [urlId];
+            client.query(queryString, values, function(queryError, result) {
+                // Release the client
+                done();
+                // If error communicating with our database
+                if (queryError) {
+                    console.log('Query error: ', queryError);
+                    res.sendStatus(500);
+                }
+                else{
+                    // If successful respond with status code
+                    res.sendStatus(202);
+                }
+            })
+        }
+    })
+})
+
 // Server-side Get function
 router.get('/', function (req, res) {
     console.log('In tasks route');
@@ -29,8 +63,9 @@ router.get('/', function (req, res) {
             })
         }
     })
-})
+}) // end Get
 
+// Server-side Post function
 router.post('/', function (req, res) {
     var myTodo = req.body.task;
     console.log('In post task route');
@@ -62,6 +97,6 @@ router.post('/', function (req, res) {
             }) 
         }
     })
-})
+}) // end Post
 
 module.exports = router;

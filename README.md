@@ -20,6 +20,6 @@ CHECKLIST
 
 [ ] Toggle completed
 
-[ ] Delete task
+[X] Delete task
 
 [ ] Visuals/Bootstrap
