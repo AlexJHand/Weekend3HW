@@ -8,6 +8,8 @@ function onReady() {
     // Event listeners
     $('#addButton').on('click', addTask);
     $('#tasksToComplete').on('click', '.deleteMe', deleteTask);
+    $('#tasksToComplete').on('click', '.completeMe', completeTask);
+
 }
 
 // Function to add task to database
@@ -36,12 +38,30 @@ function addTask() {
 
 // Function to toggle completion of task
 function completeTask() {
-    
+    // Get id of the parent div of the complete button clicked
+    var thisId = $(this).parent().data('id');
+    var thisCompletion = $(this).parent().data('complete');
+    // Create object containing data to modify
+    var objectToMod = {
+        id: thisId,
+        completed: thisCompletion
+    }
+    console.log('objectToMod -->', objectToMod);
+    // Ajax put
+    $.ajax({
+        type: 'PUT',
+        url: '/tasks',
+        data: objectToMod,
+        success: function(res) {
+            console.log('Put res', res);
+            getTasks();
+        }
+    })
 } // end completeTask
 
 // Function to remove task
 function deleteTask() {
-    // Get the id of the parent table row of the delete button clicked
+    // Get the id of the parent div of the delete button clicked
     var thisId = $(this).parent().data('id');
     console.log($(this).parent());
     console.log($(this));
@@ -59,8 +79,6 @@ function deleteTask() {
     })
 } // end completeTask
 
-
-
 // Function to retrieve tasks from database
 function getTasks() {
     console.log('In getTasks');
@@ -77,12 +95,13 @@ function getTasks() {
             for (var i = 0; i < serverRes.length; i++) {
                 console.log('serverRes[i]', serverRes[i]);
                 // Create div
-                var $taskDiv = $('<div data-id="' + serverRes[i].id + '">');
+                var $taskDiv = $('<div data-id="' + serverRes[i].id + '"'
+                    + ' data-complete="' + serverRes[i].complete + '">');
                 // Add a name of task to div
                 var $textDiv = $('<div>' + serverRes[i].taskname +'</div>')
                 $taskDiv.append($textDiv);
                 // Display completed/not completed
-                if (serverRes[i] === true) {
+                if (serverRes[i].complete === true) {
                     var taskStatus = 'Completed';
                 }
                 else {

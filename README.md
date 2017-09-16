@@ -18,7 +18,7 @@ CHECKLIST
 
 [X] Update display on post
 
-[ ] Toggle completed
+[X] Toggle completed
 
 [X] Delete task
 
