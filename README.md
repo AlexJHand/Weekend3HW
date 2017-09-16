@@ -12,7 +12,7 @@ CHECKLIST
 
 [X] Connect to database
 
-[ ] Display info from db on the DOM
+[X] Display info from db on the DOM
 
 [ ] Post to db
 
