@@ -2,7 +2,7 @@ CHECKLIST
 
 [X] Make file tree
 
-[ ] Spin up server
+[X] Spin up server
 
 [ ] Create basic routes
 
