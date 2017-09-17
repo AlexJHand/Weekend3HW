@@ -119,42 +119,28 @@ router.put('/', function (req, res) {
             // If task in database is false
             if (myStatus == 'false') {
                 console.log('Task is not already completed');
-                // Create a parameterized query string
-                var queryString = 'UPDATE todo SET complete = $1 WHERE id = $2';
-                var values = ['true', myId];
-                client.query(queryString, values, function (queryError, result) {
-                    // Release the client
-                    done();
-                    // If error communicating with our database
-                    if (queryError) {
-                        console.log('Query error: ', queryError);
-                        res.sendStatus(500);
-                    } // end if
-                    else {
-                        // If successful respond with status code
-                        res.sendStatus(202);
-                    } // end else
-                }) // end client.query
-            } // end if
+                var statusToSet = 'true';
+            }
             else {
                 console.log('Task in database is true');
-                // Create a parameterized query string
-                var queryString = 'UPDATE todo SET complete = $1 WHERE id = $2';
-                var values = ['false', myId];
-                client.query(queryString, values, function (queryError, result) {
-                    // Release the client
-                    done();
-                    // If error communicating with our database
-                    if (queryError) {
-                        console.log('Query error: ', queryError);
-                        res.sendStatus(500);
-                    } // end if
-                    else {
-                        // If successful respond with status code
-                        res.sendStatus(202);
-                    } // end else
-                }) // end client.query
+                var statusToSet = 'false';
             }
+            // Create a parameterized query string
+            var queryString = 'UPDATE todo SET complete = $1 WHERE id = $2';
+            var values = [statusToSet, myId];
+            client.query(queryString, values, function (queryError, result) {
+                // Release the client
+                done();
+                // If error communicating with our database
+                if (queryError) {
+                    console.log('Query error: ', queryError);
+                    res.sendStatus(500);
+                } // end if
+                else {
+                    // If successful respond with status code
+                    res.sendStatus(202);
+                } // end else
+            }) // end client.query
         }
     }) // end pool.connect
 }) // end Update

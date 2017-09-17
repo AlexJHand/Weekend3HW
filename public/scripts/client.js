@@ -82,20 +82,27 @@ function deleteTask() {
 // Function to retrieve tasks from database
 function getTasks() {
     console.log('In getTasks');
-    $('#tasksToComplete').empty();
+    //$('#tasksToComplete').empty();
     // ajax get
     $.ajax({
         type: 'GET',
         url: '/tasks',
         success: function (serverRes) {
             console.log('serverRes: ', serverRes);
-            // Clear out taskTable
-            $('#taskTable').empty();
+            $('#tasksToComplete').empty();
+            $('#finishedTasks').empty();
             // For each item being returned
             for (var i = 0; i < serverRes.length; i++) {
                 console.log('serverRes[i]', serverRes[i]);
+                // Create classes for divs based on completion
+                if (serverRes[i].complete == false) {
+                    var divClass = 'falseClass';
+                }
+                else {
+                    var divClass = 'trueClass';
+                }
                 // Create div
-                var $taskDiv = $('<div data-id="' + serverRes[i].id + '"'
+                var $taskDiv = $('<div class="' + divClass + '" data-id="' + serverRes[i].id + '"'
                     + ' data-complete="' + serverRes[i].complete + '">');
                 // Add a name of task to div
                 var $textDiv = $('<div>' + serverRes[i].taskname +'</div>')
@@ -115,37 +122,13 @@ function getTasks() {
                 // Add delete button to div
                 var $deleteButton = $('<input>', {type: 'button', class: 'deleteMe', value: 'Delete'});
                 $taskDiv.append($deleteButton);
-                // Append div to section on page
-                $('#tasksToComplete').append($taskDiv);
-
-                // // Create row
-                // var $trow = $('<tr data-id="' + serverRes[i].id + '"></tr>');
-                // // Append data to table row
-                // $trow.append('<td>' + serverRes[i].taskname + '</td>');
-                // // if/else to display completed/not completed
-                // if (serverRes[i] === true) {
-                //     var taskStatus = 'Completed';
-                // }
-                // else {
-                //     var taskStatus = 'Not completed';
-                // }
-                // $trow.append('<td>' + taskStatus + '</td>');
-                
-                // // Append complete task button to row
-                // var $completeButton = $('<td><button class="completeMe" data-id="'
-                //     + serverRes[i].id + '">Complete</button></td>');
-                // $trow.append($completeButton);
-                
-                // // BUTTON GOES HERE
-                // /*
-                // var $deleteButton = $('<td><button class="deleteMe" data-id="' 
-                //     + serverRes[i].id + '">Delete</button></td>');
-                // */
-                // var $deleteButton = $('<td><button class="deleteMe">Delete</button></td>');
-                // $trow.append($deleteButton);
-
-                // // Append row to table
-                // $('#taskTable').append($trow);
+                // Append div to correct section on page
+                if (divClass === 'falseClass') {
+                    $('#tasksToComplete').append($taskDiv);
+                }
+                else {
+                    $('#finishedTasks').append($taskDiv);
+                }
             } // end for loop
         }
     })
