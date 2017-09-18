@@ -1,0 +1,46 @@
+.container {
+    background-color: lightblue;
+    margin: 3px;
+    padding: 8px;
+    border: 7px solid black;
+    border-radius: 10px;
+}
+
+label {
+    font-size: 18px;
+}
+
+.trueClass {
+    background-color: lightgreen;
+    margin: 5px;
+    padding: 8px;
+    height: 80px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.falseClass {
+    background-color: lightgrey;
+    margin: 5px;
+    padding: 8px;
+    height: 80px;
+    border: 2px solid black;
+    border-radius: 10px;
+}
+
+.textDiv {
+    font-size: 40px;
+}
+
+.completeDiv {
+    line-height: 60px;
+    font-size: 20px;
+}
+
+.completeMe {
+    height: 40px;
+}
+
+.deleteMe {
+    height: 40px;
+}

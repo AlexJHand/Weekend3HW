@@ -22,6 +22,6 @@ CHECKLIST
 
 [X] Delete task
 
-[ ] Visuals/Bootstrap
+[X] Visuals/Bootstrap
 
 [X] Tasks segregated by completion HARD MODE

@@ -13,27 +13,43 @@
         <script src="/scripts/client.js"></script>
         <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap.css">
         <link rel="stylesheet" href="vendors/bootstrap/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="styles/style.css">
     </head>
     <body>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-        <header>
-            <h1>To Do List</h1>
+        <header class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <h1 class="text-center">To Do List</h1>
+                </div>
+            </div>
         </header>
         <main>
-            <section id="inputArea">
-                <input id="inputBox" type="text" placeholder="Task">
-                <button id="addButton">Add</button>
-            </section>
-            <section id="displayArea">
-                <h2>Tasks To Complete</h2>
-                <section id="tasksToComplete">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-12">
+                        <h2>Add a New Task</h2>
+                    </div> 
+                    <section class="form-group text-center" id="inputArea">
+                        <label for="inputBox">Task:</label>
+                        <input id="inputBox" type="text">
+                        <button id="addButton">Add</button>
+                    </section>
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <section id="displayArea">
+                    <h2>Tasks To Complete</h2>
+                    <section id="tasksToComplete">
+                    </section>
+                    <h2>Finished Tasks</h2>
+                    <section id="finishedTasks">
+                    </section>
                 </section>
-                <h2>Finished Tasks</h2>
-                <section id="finishedTasks">
-                </section>
-            </section>
+            </div>
         </main>
         <footer>
         </footer>

@@ -7,7 +7,7 @@ function onReady() {
     getTasks();
     // Event listeners
     $('#addButton').on('click', addTask);
-    $('#tasksToComplete').on('click', '.deleteMe', deleteTask);
+    $('#displayArea').on('click', '.deleteMe', deleteTask);
     $('#tasksToComplete').on('click', '.completeMe', completeTask);
 
 }
@@ -104,9 +104,15 @@ function getTasks() {
                 // Create div
                 var $taskDiv = $('<div class="' + divClass + '" data-id="' + serverRes[i].id + '"'
                     + ' data-complete="' + serverRes[i].complete + '">');
+                
+                var $rowDiv = $('<div class="row"' + divClass + '" data-id="' + serverRes[i].id + '"'
+                    + ' data-complete="' + serverRes[i].complete + '">');
+                $taskDiv.append($rowDiv);
+
                 // Add a name of task to div
-                var $textDiv = $('<div>' + serverRes[i].taskname +'</div>')
-                $taskDiv.append($textDiv);
+                var $textDiv = $('<div class="col-lg-4 textDiv">' + serverRes[i].taskname +'</div>')
+                //$taskDiv.append($textDiv);
+                $rowDiv.append($textDiv);
                 // Display completed/not completed
                 if (serverRes[i].complete === true) {
                     var taskStatus = 'Completed';
@@ -114,14 +120,19 @@ function getTasks() {
                 else {
                     var taskStatus = 'Not completed';
                 }
-                var $completeDiv = $('<div>' + taskStatus + '</div>')
-                $taskDiv.append($completeDiv);
-                // Add completed button to div
-                var $completeButton = $('<input>', {type: 'button', class: 'completeMe', value: 'Complete'});
-                $taskDiv.append($completeButton);
+                var $completeDiv = $('<div class="col-md-4 completeDiv">' + taskStatus + '</div>')
+                //$taskDiv.append($completeDiv);
+                $rowDiv.append($completeDiv);
+                if (taskStatus === 'Not completed') {
+                    // Add completed button to div
+                    var $completeButton = $('<input>', { type: 'button', class: 'completeMe btn-default', value: 'Complete' });
+                    //$taskDiv.append($completeButton);
+                    $rowDiv.append($completeButton);
+                }
                 // Add delete button to div
-                var $deleteButton = $('<input>', {type: 'button', class: 'deleteMe', value: 'Delete'});
-                $taskDiv.append($deleteButton);
+                var $deleteButton = $('<input>', {type: 'button', class: 'deleteMe btn-default', value: 'Delete'});
+                //$taskDiv.append($deleteButton);
+                $rowDiv.append($deleteButton);
                 // Append div to correct section on page
                 if (divClass === 'falseClass') {
                     $('#tasksToComplete').append($taskDiv);
